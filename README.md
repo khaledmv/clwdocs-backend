@@ -1,5 +1,5 @@
 
-## Clean Water Docs CMS
+## Clean Water Docs CMS - Authentication
 - Cleanwater1 is a leading provider of water quality solutions and the only one to offer a complete set of end-to-end water quality and wastewater treatment products and solutions.
 
 ## Stack
