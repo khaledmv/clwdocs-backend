@@ -28,7 +28,7 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="{{ route('dashboard')}}" data-bs-toggle="collapse">
+                                <a href="{{ route('dashboard')}}">
                                     <i data-feather="home"></i>
                                     <span> Dashboard </span>
                                    

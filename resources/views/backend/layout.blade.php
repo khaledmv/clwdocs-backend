@@ -14,11 +14,15 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico')}}">
 
+        <!-- Toaster css -->
+        
         <!-- App css -->
         <link href="{{ asset('backend/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
 
         <!-- Icons -->
         <link href="{{ asset('backend/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 
     </head>
 
@@ -78,8 +82,48 @@
         <!-- Widgets Init Js -->
         <script src="{{ asset('backend/assets/js/pages/analytics-dashboard.init.js')}}"></script>
 
+        <!-- Toster js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
         <!-- App js-->
         <script src="{{ asset('backend/assets/js/app.js')}}"></script>
+
+   
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+            };
+
+            @if(Session::has('message')){
+                var type = "{{ Session::get('alert-type', 'info') }}";
+                switch(type){
+                    case 'info':
+                        toastr.info(" {{ Session::get('message')}} ");
+                        break;
+
+                    case 'success':
+                        toastr.success(" {{ Session::get('message')}}");
+                        break;
+
+
+                    case 'warning':
+                        toastr.success(" {{ Session::get('message')}}");
+                        break;
+
+                     case 'error':
+                        toastr.error(" {{ Session::get('message')}}");
+                        break;
+                    
+                }
+            }
+            @endif
+        </script>
+
+        @stack('scripts')
+
 
     </body>
 </html>

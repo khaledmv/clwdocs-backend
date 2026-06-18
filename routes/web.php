@@ -13,7 +13,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,4 +20,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 require __DIR__.'/auth.php';
+
+
+Route::get('admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    Route::post('/profile/store', [AdminController::class, 'AdminProfileStore'])->name('profile.store');
+});
+
+
+
+
+
+
+
+
