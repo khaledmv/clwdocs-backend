@@ -1,3 +1,8 @@
+@php
+    $profileData = Auth::user();
+@endphp
+
+
   <div class="topbar-custom">
                 <div class="container-xxl">
                     <div class="d-flex justify-content-between">
@@ -54,9 +59,9 @@
         
                             <li class="dropdown notification-list topbar-dropdown">
                                 <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{ asset('backend/assets/images/users/user-11.jpg')}}" alt="user-image" class="rounded-circle">
+                                    <img src="{{ (!empty($profileData->photo)) ? asset('upload/user_images/' . $profileData->photo ) : asset('/upload/user_images/user-avater.png') }}" alt="user-image" class="rounded-circle">
                                     <span class="pro-user-name ms-1">
-                                        Christian <i class="mdi mdi-chevron-down"></i> 
+                                        {{ ucfirst($profileData->name); }} <i class="mdi mdi-chevron-down"></i> 
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
@@ -88,4 +93,4 @@
 
                 </div>
                
-            </div>
+ </div>
