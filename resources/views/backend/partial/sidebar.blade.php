@@ -36,143 +36,134 @@
                               
                             </li>
                 
-                            <li class="menu-title">Pages</li>
+                            <li class="menu-title">Docs</li>
 
                             <li>
                                 <a href="#sidebarAuth" data-bs-toggle="collapse">
-                                    <i data-feather="users"></i>
-                                    <span> Authentication </span>
+                                    <i data-feather="package"></i>
+                                    <span> Documents </span>
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <div class="collapse" id="sidebarAuth">
                                     <ul class="nav-second-level">
-                                   
+
                                         <li>
-                                            <a href="auth-recoverpw.html" class="tp-link">Recover Password</a>
+                                            <a href="auth-recoverpw.html" class="tp-link">All Documents</a>
                                         </li>
                                         <li>
-                                            <a href="auth-lock-screen.html" class="tp-link">Lock Screen</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-confirm-mail.html" class="tp-link">Confirm Mail</a>
-                                        </li>
-                                        <li>
-                                            <a href="email-verification.html" class="tp-link">Email Verification</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-logout.html" class="tp-link">Logout</a>
+                                            <a href="auth-lock-screen.html" class="tp-link">Add New Documents</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
 
-                            <li>
-                                <a href="#sidebarError" data-bs-toggle="collapse">
-                                    <i data-feather="alert-octagon"></i>
-                                    <span> Error Pages </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <div class="collapse" id="sidebarError">
-                                    <ul class="nav-second-level">
-                                        <li>
-                                            <a href="error-404.html" class="tp-link">Error 404</a>
-                                        </li>
-                                        <li>
-                                            <a href="error-500.html" class="tp-link">Error 500</a>
-                                        </li>
-                                        <li>
-                                            <a href="error-503.html" class="tp-link">Error 503</a>
-                                        </li>
-                                        <li>
-                                            <a href="error-429.html" class="tp-link">Error 429</a>
-                                        </li>
-                                        <li>
-                                            <a href="offline-page.html" class="tp-link">Offline Page</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+
+
+                            <li class="menu-title mt-2">Tags</li>
 
                             <li>
-                                <a href="#sidebarExpages" data-bs-toggle="collapse">
+                                <a href="#application" data-bs-toggle="collapse">
                                     <i data-feather="file-text"></i>
-                                    <span> Utility </span>
+                                    <span> Application </span>
                                     <span class="menu-arrow"></span>
                                 </a>
-                                <div class="collapse" id="sidebarExpages">
+                                <div class="collapse" id="application">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="pages-starter.html" class="tp-link">Starter</a>
+                                            <a href="auth-login.html" class="tp-link">All Applications</a>
                                         </li>
                                         <li>
-                                            <a href="pages-profile.html" class="tp-link">Profile</a>
+                                            <a href="auth-register.html" class="tp-link">Add New Application</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#solutions" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Solutions </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="solutions">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="auth-login.html" class="tp-link">All Solutions</a>
                                         </li>
                                         <li>
-                                            <a href="pages-pricing.html" class="tp-link">Pricing</a>
+                                            <a href="auth-register.html" class="tp-link">Add New Solution</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#productCategory" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Product Category </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="productCategory">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="auth-login.html" class="tp-link">All Categories</a>
                                         </li>
                                         <li>
-                                            <a href="pages-timeline.html" class="tp-link">Timeline</a>
+                                            <a href="auth-register.html" class="tp-link">Add New Category</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#brands" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Brands </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="brands">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="auth-login.html" class="tp-link">All Brands</a>
                                         </li>
                                         <li>
-                                            <a href="pages-invoice.html" class="tp-link">Invoice</a>
+                                            <a href="auth-register.html" class="tp-link">Add New Brand</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#documents" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Document Types </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="documents">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="auth-login.html" class="tp-link">All Document Types</a>
                                         </li>
                                         <li>
-                                            <a href="pages-faqs.html" class="tp-link">FAQs</a>
+                                            <a href="auth-register.html" class="tp-link">Add New Documents Type</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#locations" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Location </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="locations">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="auth-login.html" class="tp-link">All Locations</a>
                                         </li>
                                         <li>
-                                            <a href="pages-gallery.html" class="tp-link">Gallery</a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-maintenance.html" class="tp-link">Maintenance</a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-coming-soon.html" class="tp-link">Coming Soon</a>
+                                            <a href="auth-register.html" class="tp-link">Add New Location</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
 
-                            <li>
-                                <a href="calendar.html" class="tp-link">
-                                    <i data-feather="calendar"></i>
-                                    <span> Calendar </span>
-                                </a>
-                            </li>
-
-                            <li class="menu-title mt-2">General</li>
-
-                            <li>
-                                <a href="#sidebarAuth2" data-bs-toggle="collapse">
-                                    <i data-feather="users"></i>
-                                    <span> Authentication </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <div class="collapse" id="sidebarAuth2">
-                                    <ul class="nav-second-level">
-                                        <li>
-                                            <a href="auth-login.html" class="tp-link">Log In</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-register.html" class="tp-link">Register</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-recoverpw.html" class="tp-link">Recover Password</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-lock-screen.html" class="tp-link">Lock Screen</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-confirm-mail.html" class="tp-link">Confirm Mail</a>
-                                        </li>
-                                        <li>
-                                            <a href="email-verification.html" class="tp-link">Email Verification</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-logout.html" class="tp-link">Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
                         </ul>
             
                     </div>
