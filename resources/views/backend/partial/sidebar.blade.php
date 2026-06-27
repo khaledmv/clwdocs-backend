@@ -70,27 +70,61 @@
                                 <div class="collapse" id="application">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="auth-login.html" class="tp-link">All Applications</a>
+                                            <a href="{{ route('taxonomy.index', 'applications') }}" class="tp-link">All Applications</a>
                                         </li>
                                         <li>
-                                            <a href="auth-register.html" class="tp-link">Add New Application</a>
+                                            <a href="{{ route('taxonomy.create', 'applications') }}" class="tp-link">Add New Application</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li>
-                                <a href="#solutions" data-bs-toggle="collapse">
+                             <li>
+                                <a href="#brands" data-bs-toggle="collapse">
                                     <i data-feather="file-text"></i>
-                                    <span> Solutions </span>
+                                    <span> Brands </span>
                                     <span class="menu-arrow"></span>
                                 </a>
-                                <div class="collapse" id="solutions">
+                                <div class="collapse" id="brands">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="auth-login.html" class="tp-link">All Solutions</a>
+                                            <a href="{{ route('taxonomy.index', 'brands') }}" class="tp-link">All Brands</a>
                                         </li>
                                         <li>
-                                            <a href="auth-register.html" class="tp-link">Add New Solution</a>
+                                            <a href="{{ route('taxonomy.create', 'brands') }}" class="tp-link">Add New Brand</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                              <li>
+                                <a href="#documents" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Document Types </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="documents">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="{{ route('taxonomy.index', 'document-types') }}" class="tp-link">All Document Types</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('taxonomy.create', 'document-types') }}" class="tp-link">Add New Documents Type</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                             <li>
+                                <a href="#locations" data-bs-toggle="collapse">
+                                    <i data-feather="file-text"></i>
+                                    <span> Location </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="locations">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="{{ route('taxonomy.index', 'locations') }}" class="tp-link">All Locations</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('taxonomy.create', 'locations') }}" class="tp-link">Add New Location</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -104,65 +138,35 @@
                                 <div class="collapse" id="productCategory">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="auth-login.html" class="tp-link">All Categories</a>
+                                            <a href="{{ route('taxonomy.index', 'product-categories') }}" class="tp-link">All Categories</a>
                                         </li>
                                         <li>
-                                            <a href="auth-register.html" class="tp-link">Add New Category</a>
+                                            <a href="{{ route('taxonomy.create', 'product-categories') }}" class="tp-link">Add New Category</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li>
-                                <a href="#brands" data-bs-toggle="collapse">
+                                <a href="#solutions" data-bs-toggle="collapse">
                                     <i data-feather="file-text"></i>
-                                    <span> Brands </span>
+                                    <span> Solutions </span>
                                     <span class="menu-arrow"></span>
                                 </a>
-                                <div class="collapse" id="brands">
+                                <div class="collapse" id="solutions">
                                     <ul class="nav-second-level">
                                         <li>
-                                            <a href="auth-login.html" class="tp-link">All Brands</a>
+                                            <a href="{{ route('taxonomy.index', 'solutions') }}" class="tp-link">All Solutions</a>
                                         </li>
                                         <li>
-                                            <a href="auth-register.html" class="tp-link">Add New Brand</a>
+                                            <a href="{{ route('taxonomy.index', 'solutions') }}" class="tp-link">Add New Solution</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li>
-                                <a href="#documents" data-bs-toggle="collapse">
-                                    <i data-feather="file-text"></i>
-                                    <span> Document Types </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <div class="collapse" id="documents">
-                                    <ul class="nav-second-level">
-                                        <li>
-                                            <a href="auth-login.html" class="tp-link">All Document Types</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-register.html" class="tp-link">Add New Documents Type</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#locations" data-bs-toggle="collapse">
-                                    <i data-feather="file-text"></i>
-                                    <span> Location </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <div class="collapse" id="locations">
-                                    <ul class="nav-second-level">
-                                        <li>
-                                            <a href="auth-login.html" class="tp-link">All Locations</a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-register.html" class="tp-link">Add New Location</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            
+                           
+                          
+                           
 
                         </ul>
             
