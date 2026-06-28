@@ -17,8 +17,8 @@ class Application extends Model
         });
     }
 
-    // public function documents(): HasMany
-    // {
-    //     return $this->hasMany(Document::class);
-    // }
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
+    }
 }

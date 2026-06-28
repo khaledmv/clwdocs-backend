@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\TaxonomyController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -47,6 +48,22 @@ Route::middleware('auth')->group(function(){
 
     Route::delete('{type}/{id}', [TaxonomyController::class, 'destroy'])->name('destroy');
   });
+
+
+
+     // Documents 
+    Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
+    Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+    Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
+    Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+    Route::put('/documents/{document}', [DocumentController::class, 'update'])->name('documents.update');
+    Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
+    Route::post('/documents/{id}/restore', [DocumentController::class, 'restore'])->name('documents.restore');
+    Route::delete('/documents/{id}/force', [DocumentController::class, 'forceDelete'])->name('documents.force-delete');
+    Route::post('/documents/{document}/publish', [DocumentController::class, 'publish'])->name('documents.publish');
+    Route::post('/documents/{document}/unpublish', [DocumentController::class, 'unpublish'])->name('documents.unpublish');
+
+  
 
 });
 

@@ -48,10 +48,10 @@
                                     <ul class="nav-second-level">
 
                                         <li>
-                                            <a href="auth-recoverpw.html" class="tp-link">All Documents</a>
+                                            <a href="{{ route('documents.index') }}" class="tp-link">All Documents</a>
                                         </li>
                                         <li>
-                                            <a href="auth-lock-screen.html" class="tp-link">Add New Documents</a>
+                                            <a href="{{ route('documents.create') }}" class="tp-link">Add New Documents</a>
                                         </li>
                                     </ul>
                                 </div>
