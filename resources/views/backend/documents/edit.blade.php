@@ -217,6 +217,25 @@
                                     </div>
                                    </div>
                                 </div>
+                                <div class="col-lg-12">
+                                   <div class="row">
+                                        <fieldset class="row mb-3">
+                                                <div class="col-sm-10 d-flex gap-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input"
+                                                                type="checkbox"
+                                                                name="is_published"
+                                                                id="is_published"
+                                                                value="1"
+                                                                @checked(old('is_published', $document->is_published))>
+                                                        <label class="form-check-label" for="gridRadios1">
+                                                           Published
+                                                        </label>
+                                                    </div>
+                                              </div>
+                                        </fieldset>
+                                   </div>
+                                </div>
                             </div>
                         </div>
 

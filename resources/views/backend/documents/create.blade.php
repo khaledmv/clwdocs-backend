@@ -32,7 +32,7 @@
                                 <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="simpleinput" class="form-label">Title</label>
-                                            <input type="text" name="title" id="title" class="form-control" placeholder="Title">
+                                            <input type="text" name="title" id="title" class="form-control" placeholder="Title" value="{{ old('title') }}">
                                              @error('title')
                                                         <span class="text-danger">{{ $message }}</span>
                                              @enderror
@@ -45,18 +45,20 @@
                                                     class="form-control"
                                                     id="slug"
                                                     name="slug"
-                                                    placeholder="auto-generated-url-slug">
+                                                    placeholder="auto-generated-url-slug"
+                                                    value="{{ old('slug') }}"
+                                                    >
                                             </div>
                                         </div>
                                         
                                         <div class="mb-3">
                                             <label for="simpleinput" class="form-label">Meta Title</label>
-                                            <input type="text" name="meta_title" id="metaTitle" class="form-control" placeholder="Title">
+                                            <input type="text" name="meta_title" id="metaTitle" class="form-control" placeholder="Title" value="{{ old('meta_title') }}">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="example-textarea" class="form-label">Meta Description</label>
-                                            <textarea class="form-control" name="meta_description" id="example-textarea" rows="3" spellcheck="false"></textarea>
+                                            <textarea class="form-control" name="meta_description" id="example-textarea" rows="3" spellcheck="false">{{ old('meta_description')}}</textarea>
                                         </div>
 
                                         <div class="mb-3">
@@ -208,6 +210,45 @@
                                     </div>
                                    </div>
                                 </div>
+                                <!-- Published row--> 
+                                <div class="col-lg-12">
+                                   <div class="row">
+                                        <fieldset class="row mb-3">
+                                            <legend class="col-form-label pt-0">Status</legend>
+
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="is_published"
+                                                    id="status_draft"
+                                                    value="0"
+                                                    @checked(old('is_published', '0') == '0')
+                                                >
+
+                                                <label class="form-check-label" for="status_draft">
+                                                    Draft
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="is_published"
+                                                    id="status_published"
+                                                    value="1"
+                                                    @checked(old('is_published') == '1')
+                                                >
+
+                                                <label class="form-check-label" for="status_published">
+                                                    Published
+                                                </label>
+                                            </div>
+                                        </fieldset>
+                                   </div>
+                                </div>
+                                <!-- Published row--> 
                             </div>
                         </div>
 
@@ -265,6 +306,7 @@
            document.querySelector('form').addEventListener('submit', function () {
                 document.getElementById('description').value = quill.root.innerHTML;
             });
+          quill.root.innerHTML = @json(old('description', $document->description ?? ''));
 
             //image preview 
 
