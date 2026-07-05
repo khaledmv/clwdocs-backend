@@ -16,13 +16,22 @@ class DocumentController extends Controller
             ? (int) $request->per_page
             : 12;
 
+        // $filters = $request->only([
+        //     'document_type_id',
+        //     'brand_id',
+        //     'application_id',
+        //     'solution_id',
+        //     'product_category_id',
+        //     'location_id',
+        // ]);
+
         $filters = $request->only([
-            'document_type_id',
-            'brand_id',
-            'application_id',
-            'solution_id',
-            'product_category_id',
-            'location_id',
+            'document_type',
+            'brand',
+            'application',
+            'solution',
+            'product_category',
+            'location',
         ]);
 
         if ($request->filled('search')) {

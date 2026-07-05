@@ -139,16 +139,40 @@ class Document extends Model
         return $query->where('is_published', true);
     }
 
+    // public function scopeFilter($query, array $filters)
+    // {
+    //     return $query
+    //         ->when($filters['document_type_id'] ?? null, fn ($q, $v) => $q->where('document_type_id', $v))
+    //         ->when($filters['brand_id'] ?? null, fn ($q, $v) => $q->where('brand_id', $v))
+    //         ->when($filters['application_id'] ?? null, fn ($q, $v) => $q->where('application_id', $v))
+    //         ->when($filters['solution_id'] ?? null, fn ($q, $v) => $q->where('solution_id', $v))
+    //         ->when($filters['product_category_id'] ?? null, fn ($q, $v) => $q->where('product_category_id', $v))
+    //         ->when($filters['location_id'] ?? null, fn ($q, $v) => $q->where('location_id', $v));
+    // }
+
+
     public function scopeFilter($query, array $filters)
-    {
-        return $query
-            ->when($filters['document_type_id'] ?? null, fn ($q, $v) => $q->where('document_type_id', $v))
-            ->when($filters['brand_id'] ?? null, fn ($q, $v) => $q->where('brand_id', $v))
-            ->when($filters['application_id'] ?? null, fn ($q, $v) => $q->where('application_id', $v))
-            ->when($filters['solution_id'] ?? null, fn ($q, $v) => $q->where('solution_id', $v))
-            ->when($filters['product_category_id'] ?? null, fn ($q, $v) => $q->where('product_category_id', $v))
-            ->when($filters['location_id'] ?? null, fn ($q, $v) => $q->where('location_id', $v));
-    }
+            {
+                return $query
+                    ->when($filters['document_type'] ?? null, function ($q, $value) {
+                        $q->whereHas('documentType', fn ($q) => $q->where('slug', $value));
+                    })
+                    ->when($filters['brand'] ?? null, function ($q, $value) {
+                        $q->whereHas('brand', fn ($q) => $q->where('slug', $value));
+                    })
+                    ->when($filters['application'] ?? null, function ($q, $value) {
+                        $q->whereHas('application', fn ($q) => $q->where('slug', $value));
+                    })
+                    ->when($filters['solution'] ?? null, function ($q, $value) {
+                        $q->whereHas('solution', fn ($q) => $q->where('slug', $value));
+                    })
+                    ->when($filters['product_category'] ?? null, function ($q, $value) {
+                        $q->whereHas('productCategory', fn ($q) => $q->where('slug', $value));
+                    })
+                    ->when($filters['location'] ?? null, function ($q, $value) {
+                        $q->whereHas('location', fn ($q) => $q->where('slug', $value));
+                    });
+            }
 
     // ─── Scout ────────────────────────────────────────────────────────────────
 
