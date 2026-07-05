@@ -32,7 +32,7 @@
           <li><a href="https://events.cleanwater1.com/">Events</a></li>
           <li><a href="https://tools.cleanwater1.com/index.php">Tools</a></li>
           <li><a href="https://blog.cleanwater1.com/">Blog</a></li>
-          <li><a href="#docs">Api</a></li>
+          <li><a href="{{ url('/docs/api')}}">Api</a></li>
         </ul>
 
         <!-- shown inside off-canvas nav on mobile -->
@@ -88,7 +88,7 @@
           </p>
 
           <div class="hero-actions">
-            <a href="#docs" class="btn btn-primary btn-lg">
+            <a href="{{ url('/docs/api')}}" class="btn btn-primary btn-lg">
               Read the Docs
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -155,7 +155,7 @@
         <div class="section-head fade-in">
           <span class="eyebrow">Features</span>
           <h2 class="section-title">Everything you need, nothing you don't</h2>
-          <p class="section-subtitle">clw-backend ships with the essentials baked in, so you can focus on your product instead of wiring up infrastructure.</p>
+          <p class="section-subtitle">clw-docs backend ships with the essentials baked in, so you can focus on your product instead of wiring up infrastructure.</p>
         </div>
 
         <div class="features-grid">

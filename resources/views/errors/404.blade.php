@@ -32,7 +32,7 @@
           <li><a href="https://events.cleanwater1.com/">Events</a></li>
           <li><a href="https://tools.cleanwater1.com/index.php">Tools</a></li>
           <li><a href="https://blog.cleanwater1.com/">Blog</a></li>
-          <li><a href="#docs">Api</a></li>
+          <li><a href="{{ url('/docs/api')}}">Api</a></li>
         </ul>
 
         <!-- shown inside off-canvas nav on mobile -->
