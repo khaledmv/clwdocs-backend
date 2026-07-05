@@ -21,21 +21,18 @@
 
       <a href="#" class="logo" aria-label="clw-backend home">
         <span class="logo-mark" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="28" height="28" rx="8" fill="currentColor"/>
-            <path d="M9 9L14 14L9 19" stroke="var(--color-bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M15 19H19" stroke="var(--color-bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="{{asset('backend/assets/images/fabicon.png')}}" alt="logo" width="20px">
         </span>
-        <span class="logo-word">clw-backend</span>
+        <span class="logo-word">CLW-DOCS</span>
       </a>
 
       <nav class="main-nav" id="mainNav" aria-label="Primary">
         <ul class="nav-list">
-          <li><a href="#docs">Docs</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#guides">Guides</a></li>
-          <li><a href="#blog">Blog</a></li>
+          <li><a href="https://cleanwater1.com/">Clean Water</a></li>
+          <li><a href="https://events.cleanwater1.com/">Events</a></li>
+          <li><a href="https://tools.cleanwater1.com/index.php">Tools</a></li>
+          <li><a href="https://blog.cleanwater1.com/">Blog</a></li>
+          <li><a href="#docs">Api</a></li>
         </ul>
 
         <!-- shown inside off-canvas nav on mobile -->
@@ -45,24 +42,6 @@
       </nav>
 
       <div class="header-actions">
-        <div class="search-box">
-          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <input type="text" placeholder="Search docs..." aria-label="Search docs" />
-          <kbd class="search-kbd">/</kbd>
-        </div>
-
-        <a class="icon-btn github-btn" href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="View clw-backend on GitHub">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.79-.25.79-.55v-2.13c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.8 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.27 5.68.41.36.78 1.07.78 2.16v3.2c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-          </svg>
-          <span class="star-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-            2.4k
-          </span>
-        </a>
 
         <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
           <svg class="icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -74,7 +53,7 @@
           </svg>
         </button>
 
-        <a href="#get-started" class="btn btn-primary header-cta">Get Started</a>
+        <a href="#get-started" class="btn btn-primary header-cta">Docs</a>
 
         <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
           <span></span><span></span><span></span>
@@ -104,8 +83,7 @@
           </h1>
 
           <p class="hero-subtitle">
-            clw-backend is a lightweight, type-safe framework for building REST and
-            GraphQL APIs in Node.js. Spin up a production-ready server in minutes,
+            CLW-DOCS backend is a lightweight, type-safe framework for building REST APIs in Node.js. Spin up a production-ready server in minutes,
             not days — with sane defaults and none of the boilerplate.
           </p>
 
@@ -160,12 +138,13 @@
       <div class="container">
         <p class="trust-label">Built on tools you already trust</p>
         <ul class="trust-logos">
+          <li>Php</li>
+          <li>Laravel</li>
           <li>Node.js</li>
           <li>TypeScript</li>
-          <li>Docker</li>
-          <li>PostgreSQL</li>
-          <li>Redis</li>
-          <li>GraphQL</li>
+          <li>MySql</li>
+          <li>Next.js</li>
+          
         </ul>
       </div>
     </section>
@@ -263,75 +242,54 @@
     <div class="container footer-grid">
 
       <div class="footer-brand">
-        <a href="#" class="logo">
-          <span class="logo-mark" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="28" height="28" rx="8" fill="currentColor"/>
-              <path d="M9 9L14 14L9 19" stroke="var(--color-bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M15 19H19" stroke="var(--color-bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="logo-word">clw-backend</span>
-        </a>
-        <p>A lightweight, type-safe backend framework for building fast REST &amp; GraphQL APIs.</p>
+      <a href="#" class="logo" aria-label="clw-backend home">
+            <span class="logo-mark" aria-hidden="true">
+              <img src="{{asset('backend/assets/images/fabicon.png')}}" alt="logo" width="20px">
+            </span>
+            <span class="logo-word">CLW-DOCS</span>
+          </a>
+        <p>cleanwater1 is a leading provider of water quality solutions and the only to offer a complete set of end-to-end water quality and wastewater treatment products and solutions.</p>
 
-        <div class="social-icons">
-          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.79-.25.79-.55v-2.13c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.8 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.27 5.68.41.36.78 1.07.78 2.16v3.2c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
-          </a>
-          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.2 8.2L23.3 22h-6.6l-5.2-6.8L5.5 22H2.4l7.7-8.8L1 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 4h-1.9l12.2 16Z"/></svg>
-          </a>
-          <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4A17.6 17.6 0 0 0 15.9 4l-.3.6a15 15 0 0 1 3.9 1.4 16 16 0 0 0-13-.1A14 14 0 0 1 10.4 4l-.3-.6a17.6 17.6 0 0 0-4.4 1.4C2.6 9 1.8 12.5 2.1 16a17.7 17.7 0 0 0 5.3 2.6l.7-1.2a11 11 0 0 1-1.8-.8l.4-.3a12.7 12.7 0 0 0 10.6 0l.4.3a11 11 0 0 1-1.8.8l.7 1.2A17.7 17.7 0 0 0 22 16c.4-4-.6-7.4-1.7-10.6ZM9 14.1c-.8 0-1.4-.7-1.4-1.6 0-.9.6-1.6 1.4-1.6.8 0 1.5.7 1.4 1.6 0 .9-.6 1.6-1.4 1.6Zm6 0c-.8 0-1.4-.7-1.4-1.6 0-.9.6-1.6 1.4-1.6.8 0 1.5.7 1.4 1.6 0 .9-.6 1.6-1.4 1.6Z"/></svg>
-          </a>
-        </div>
       </div>
 
       <div class="footer-col">
-        <h4>Product</h4>
+        <h4>Solutions</h4>
         <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#get-started">Quick start</a></li>
-          <li><a href="#changelog">Changelog</a></li>
-          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="https://cleanwater1.com/">Clean Water </a></li>
+          <li><a href="https://cleanwater1.com/water-quality-solutions?hsLang=en">Water Quality</a></li>
+          <li><a href="https://cleanwater1.com/wastewater-solutions">Wastewater Treatment</a></li>
+          <li><a href="https://cleanwater1.com/services">Service</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Resources</h4>
         <ul>
-          <li><a href="#docs">Documentation</a></li>
-          <li><a href="#guides">Guides</a></li>
-          <li><a href="#api-reference">API Reference</a></li>
-          <li><a href="#blog">Blog</a></li>
+          <li><a href="#docs">API Documentation</a></li>
+          <li><a href="https://cleanwater1.com/email-preference-center">Profile and Preference</a></li>
+          <li><a href="https://cleanwater1.com/team-and-locations">Team Map and Locations</a></li>
+          <li><a href="https://cleanwater1.com/learning-track-sign-up">Learning Tracks</a></li>
+          <li><a href="https://events.cleanwater1.com/">Upcoming Events</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#careers">Careers</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="https://cleanwater1.com/who-we-are">About</a></li>
+          <li><a href="https://cleanwater1.com/news">News</a></li>
+          <li><a href="https://cleanwater1.com/careers">Careers</a></li>
+          <li><a href="https://cleanwater1.com/privacy-policy">Privacy Policy</a></li>
+          <li><a href="https://cleanwater1.com/cookies-policy">Cookies Policy</a></li>
+          <li><a href="https://cleanwater1.com/contact-us">Contact Us</a></li>
         </ul>
-      </div>
-
-      <div class="footer-newsletter">
-        <h4>Stay up to date</h4>
-        <p>Get release notes and updates in your inbox. No spam.</p>
-        <form class="newsletter-form" onsubmit="return false;">
-          <input type="email" placeholder="you@example.com" aria-label="Email address" required />
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
       </div>
 
     </div>
 
     <div class="container footer-bottom">
-      <p>&copy; <span id="year"></span> clw-backend. All rights reserved.</p>
-      <p>Built with plain HTML, CSS &amp; JS.</p>
+      <p>&copy; <span id="year"></span> clw-docs-backend. All rights reserved.</p>
+      <p>By <a href="https://pixit.com.au/"> Pixit Design </a></p>
     </div>
   </footer>
 
