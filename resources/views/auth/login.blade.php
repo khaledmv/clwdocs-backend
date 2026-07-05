@@ -82,12 +82,7 @@
                                                 </div>
                                             </div>
                                         </form>
-    
-    
-                                        <div class="text-center text-muted mb-4">
-                                            <p class="mb-0">Don't have an account ?<a class='text-primary ms-2 fw-medium' href='{{route('register')}}'>Sing up</a></p>
-                                        </div>
-    
+        
                                     </div>
                                 </div>
                             </div>
