@@ -37,7 +37,7 @@
 
         <!-- shown inside off-canvas nav on mobile -->
         <div class="nav-actions-mobile">
-          <a href="#get-started" class="btn btn-primary btn-block">Get Started</a>
+          <a href="#get-started" class="btn btn-primary btn-block">Docs</a>
         </div>
       </nav>
 
