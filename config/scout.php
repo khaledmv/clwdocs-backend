@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Document;
+
 return [
 
     /*
@@ -140,9 +142,14 @@ return [
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
-            // 'users' => [
-            //     'filterableAttributes'=> ['id', 'name', 'email'],
-            // ],
+            Document::class => [
+                'searchableAttributes' => [
+                    'title',
+                    'description',
+                    'tags',
+                    'file_name',
+                ],
+            ],
         ],
     ],
 

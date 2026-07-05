@@ -195,6 +195,8 @@ class Document extends Model
             'product_category_id' => $this->product_category_id,
             'location'            => $this->location?->name,
             'location_id'         => $this->location_id,
+            'file_name' => $this->file_name,
+            'tags' => $this->tags?->pluck('name')->toArray() ?? [],
             'published_at'        => $this->published_at?->timestamp,
         ];
     }
