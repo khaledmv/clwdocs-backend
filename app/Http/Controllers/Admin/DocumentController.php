@@ -14,6 +14,7 @@ use App\Models\Location;
 use App\Models\ProductCategory;
 use App\Models\Solution;
 use Illuminate\Support\Facades\Storage;
+use App\Services\PdfExtractorService;
 
 class DocumentController extends Controller
 {
@@ -45,9 +46,11 @@ class DocumentController extends Controller
     public function store(StoreDocumentRequest $request)
     {
         $file = $request->file('file');
+        $extractor = app(PdfExtractorService::class);
 
         $filePath = $file->store('documents', 'public');
-
+        $pdfText = $extractor->extract(storage_path('app/public/' . $filePath));
+       
         $thumbnailPath = null;
         if ($request->hasFile('thumbnail')) {
             $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
@@ -63,6 +66,7 @@ class DocumentController extends Controller
             'uploaded_by'  => auth()->id(),
             'is_published' => $request->boolean('is_published', true),
             'published_at' => $request->boolean('is_published', true) ? now() : null,
+            'pdf_content' => $pdfText,
         ]);
 
             $notification = array(

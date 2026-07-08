@@ -16,7 +16,7 @@ class Document extends Model
     use SoftDeletes, Searchable;
 
     protected $fillable = [
-        'title', 'slug', 'description','meta_title', 'meta_description',
+        'title', 'slug', 'description', 'pdf_content', 'meta_title', 'meta_description',
         'document_type_id', 'brand_id', 'application_id',
         'solution_id', 'product_category_id', 'location_id',
         'file_path', 'file_name', 'file_size', 'mime_type', 'thumbnail_path',
@@ -236,6 +236,7 @@ class Document extends Model
             'title'               => $this->title,
             'slug'                => $this->slug,
             'description'         => $this->description,
+            'pdf_content' => $this->pdf_content,
             'document_type'       => $this->documentType?->name,
             'document_type_id'    => $this->document_type_id,
             'brand'               => $this->brand?->name,

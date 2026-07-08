@@ -19,6 +19,7 @@ class DocumentResource extends JsonResource
             'title'            => $this->title,
             'slug'             => $this->slug,
             'description'      => $this->description,
+            'pdf_content'      => $this->pdf_content,
             'file_url'         => $this->file_url,
             'file_name'        => $this->file_name,
             'file_size_human'  => $this->file_size_human,
