@@ -63,7 +63,7 @@
                                                                 <tr>
                                                                     <th>SL.</th>
                                                                     <th>Title</th>
-                                                                    <th>Slug</th>
+                                                                    {{-- <th>Slug</th> --}}
                                                                     <th>Action</th>
                                                                 
                                                                 </tr>
@@ -73,7 +73,7 @@
                                                                     <tr>
                                                                         <td># {{ $loop->iteration }}</td>
                                                                         <td> {{ ucwords($item->title) }} </td>
-                                                                        <td>{{ $item->slug }}</td>
+                                                                        {{-- <td>{{ $item->slug }}</td> --}}
                                                                         <td>
                                                                             <div class="d-flex flex-wrap gap-2">
                                                                                 <a href="{{ route('documents.edit', $item->id ) }}" class="btn btn-outline-primary rounded-pill">Edit</a>

@@ -151,28 +151,81 @@ class Document extends Model
     // }
 
 
+    // public function scopeFilter($query, array $filters)
+    //         {
+    //             return $query
+    //                 ->when($filters['document_type'] ?? null, function ($q, $value) {
+    //                     $q->whereHas('documentType', fn ($q) => $q->where('slug', $value));
+    //                 })
+    //                 ->when($filters['brand'] ?? null, function ($q, $value) {
+    //                     $q->whereHas('brand', fn ($q) => $q->where('slug', $value));
+    //                 })
+    //                 ->when($filters['application'] ?? null, function ($q, $value) {
+    //                     $q->whereHas('application', fn ($q) => $q->where('slug', $value));
+    //                 })
+    //                 ->when($filters['solution'] ?? null, function ($q, $value) {
+    //                     $q->whereHas('solution', fn ($q) => $q->where('slug', $value));
+    //                 })
+    //                 ->when($filters['product_category'] ?? null, function ($q, $value) {
+    //                     $q->whereHas('productCategory', fn ($q) => $q->where('slug', $value));
+    //                 })
+    //                 ->when($filters['location'] ?? null, function ($q, $value) {
+    //                     $q->whereHas('location', fn ($q) => $q->where('slug', $value));
+    //                 });
+    //         }
+
+
     public function scopeFilter($query, array $filters)
-            {
-                return $query
-                    ->when($filters['document_type'] ?? null, function ($q, $value) {
-                        $q->whereHas('documentType', fn ($q) => $q->where('slug', $value));
-                    })
-                    ->when($filters['brand'] ?? null, function ($q, $value) {
-                        $q->whereHas('brand', fn ($q) => $q->where('slug', $value));
-                    })
-                    ->when($filters['application'] ?? null, function ($q, $value) {
-                        $q->whereHas('application', fn ($q) => $q->where('slug', $value));
-                    })
-                    ->when($filters['solution'] ?? null, function ($q, $value) {
-                        $q->whereHas('solution', fn ($q) => $q->where('slug', $value));
-                    })
-                    ->when($filters['product_category'] ?? null, function ($q, $value) {
-                        $q->whereHas('productCategory', fn ($q) => $q->where('slug', $value));
-                    })
-                    ->when($filters['location'] ?? null, function ($q, $value) {
-                        $q->whereHas('location', fn ($q) => $q->where('slug', $value));
+        {
+            return $query
+                ->when($filters['document_type'] ?? null, function ($q, $value) {
+                    $slugs = array_filter(array_map('trim', explode(',', $value)));
+
+                    $q->whereHas('documentType', function ($q) use ($slugs) {
+                        $q->whereIn('slug', $slugs);
                     });
-            }
+                })
+
+                ->when($filters['brand'] ?? null, function ($q, $value) {
+                    $slugs = array_filter(array_map('trim', explode(',', $value)));
+
+                    $q->whereHas('brand', function ($q) use ($slugs) {
+                        $q->whereIn('slug', $slugs);
+                    });
+                })
+
+                ->when($filters['application'] ?? null, function ($q, $value) {
+                    $slugs = array_filter(array_map('trim', explode(',', $value)));
+
+                    $q->whereHas('application', function ($q) use ($slugs) {
+                        $q->whereIn('slug', $slugs);
+                    });
+                })
+
+                ->when($filters['solution'] ?? null, function ($q, $value) {
+                    $slugs = array_filter(array_map('trim', explode(',', $value)));
+
+                    $q->whereHas('solution', function ($q) use ($slugs) {
+                        $q->whereIn('slug', $slugs);
+                    });
+                })
+
+                ->when($filters['product_category'] ?? null, function ($q, $value) {
+                    $slugs = array_filter(array_map('trim', explode(',', $value)));
+
+                    $q->whereHas('productCategory', function ($q) use ($slugs) {
+                        $q->whereIn('slug', $slugs);
+                    });
+                })
+
+                ->when($filters['location'] ?? null, function ($q, $value) {
+                    $slugs = array_filter(array_map('trim', explode(',', $value)));
+
+                    $q->whereHas('location', function ($q) use ($slugs) {
+                        $q->whereIn('slug', $slugs);
+                    });
+                });
+        }
 
     // ─── Scout ────────────────────────────────────────────────────────────────
 
