@@ -10,6 +10,7 @@
     <link href="{{ asset('backend/assets/libs/quill/quill.core.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/assets/libs/quill/quill.snow.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/assets/libs/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 @endpush
 
 
@@ -77,13 +78,11 @@
                                    <div class="row">
                                          <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Applicaiton</label>
-                                            <select id="simpleinput" name="application_id" class="form-select" aria-label="Default select example">
-                                               
-                                                <option value="">— None —</option>
+                                            <label for="applications" class="form-label">Applications</label>
+                                            <select id="applications" name="application_ids[]" multiple class="form-select tom-select" aria-label="Default select example">
                                                 @foreach ($applications as $item)
                                                     <option value="{{ $item->id }}" data-name="{{ $item->name }}"
-                                                        {{ old('application_id', $document->application_id ?? '') == $item->id ? 'selected' : '' }}>
+                                                        {{ in_array($item->id, old('application_ids', ($document->applications ?? collect())->pluck('id')->all())) ? 'selected' : '' }}>
                                                         {{ $item->name }}
                                                     </option>
                                                 @endforeach
@@ -92,12 +91,11 @@
                                     </div>
                                     <div class="col-lg-6">
                                           <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Brands</label>
-                                            <select id="simpleinput" name="brand_id" class="form-select" aria-label="Default select example">
-                                               <option value="">— None —</option>
+                                            <label for="brands" class="form-label">Brands</label>
+                                            <select id="brands" name="brand_ids[]" multiple class="form-select tom-select" aria-label="Default select example">
                                                     @foreach ($brands as $item)
                                                         <option value="{{ $item->id }}" data-name="{{ $item->name }}"
-                                                            {{ old('brand_id', $document->brand_id ?? '') == $item->id ? 'selected' : '' }}>
+                                                            {{ in_array($item->id, old('brand_ids', ($document->brands ?? collect())->pluck('id')->all())) ? 'selected' : '' }}>
                                                             {{ $item->name }}
                                                         </option>
                                                     @endforeach
@@ -110,13 +108,11 @@
                                    <div class="row">
                                          <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Document Type</label>
-                                            <select id="simpleinput" name="document_type_id" class="form-select" aria-label="Default select example">
-                                               
-                                                <option value="">— None —</option>
+                                            <label for="documentTypes" class="form-label">Document Type</label>
+                                            <select id="documentTypes" name="document_type_ids[]" multiple class="form-select tom-select" aria-label="Default select example">
                                                 @foreach ($documentTypes as $item)
                                                     <option value="{{ $item->id }}" data-name="{{ $item->name }}"
-                                                        {{ old('document_type_id', $document->document_type_id ?? '') == $item->id ? 'selected' : '' }}>
+                                                        {{ in_array($item->id, old('document_type_ids', ($document->documentTypes ?? collect())->pluck('id')->all())) ? 'selected' : '' }}>
                                                         {{ $item->name }}
                                                     </option>
                                                 @endforeach
@@ -125,12 +121,11 @@
                                     </div>
                                     <div class="col-lg-6">
                                           <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Location</label>
-                                            <select id="simpleinput" name="location_id" class="form-select" aria-label="Default select example">
-                                                   <option value="">— None —</option>
+                                            <label for="locations" class="form-label">Location</label>
+                                            <select id="locations" name="location_ids[]" multiple class="form-select tom-select" aria-label="Default select example">
                                                     @foreach ($locations as $item)
                                                         <option value="{{ $item->id }}" data-name="{{ $item->name }}"
-                                                            {{ old('location_id', $document->location_id ?? '') == $item->id ? 'selected' : '' }}>
+                                                            {{ in_array($item->id, old('location_ids', ($document->locations ?? collect())->pluck('id')->all())) ? 'selected' : '' }}>
                                                             {{ $item->name }}
                                                         </option>
                                                     @endforeach
@@ -143,13 +138,11 @@
                                    <div class="row">
                                          <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Product Category</label>
-                                            <select id="simpleinput" name="product_category_id" class="form-select" aria-label="Default select example">
-                                               
-                                               <option value="">— None —</option>
+                                            <label for="productCategories" class="form-label">Product Category</label>
+                                            <select id="productCategories" name="product_category_ids[]" multiple class="form-select tom-select" aria-label="Default select example">
                                                 @foreach ($productCategories as $item)
                                                     <option value="{{ $item->id }}" data-name="{{ $item->name }}"
-                                                        {{ old('product_category_id', $document->product_category_id ?? '') == $item->id ? 'selected' : '' }}>
+                                                        {{ in_array($item->id, old('product_category_ids', ($document->productCategories ?? collect())->pluck('id')->all())) ? 'selected' : '' }}>
                                                         {{ $item->name }}
                                                     </option>
                                                 @endforeach
@@ -158,12 +151,11 @@
                                     </div>
                                     <div class="col-lg-6">
                                           <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Solution</label>
-                                            <select id="simpleinput" name="solution_id" class="form-select" aria-label="Default select example">
-                                                   <option value="">— None —</option>
+                                            <label for="solutions" class="form-label">Solutions</label>
+                                            <select id="solutions" name="solution_ids[]" multiple class="form-select tom-select" aria-label="Default select example">
                                                     @foreach ($solutions as $item)
                                                         <option value="{{ $item->id }}" data-name="{{ $item->name }}"
-                                                            {{ old('solution_id', $document->solution_id ?? '') == $item->id ? 'selected' : '' }}>
+                                                            {{ in_array($item->id, old('solution_ids', ($document->solutions ?? collect())->pluck('id')->all())) ? 'selected' : '' }}>
                                                             {{ $item->name }}
                                                         </option>
                                                     @endforeach
@@ -267,6 +259,7 @@
 
         <!-- Quill Editor Js -->
         <script src="{{ asset('backend/assets/libs/quill/quill.min.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
         <!-- Quill Demo Js -->
         <script src="{{ asset('backend/assets/js/pages/quilljs.init.js')}}"></script>
@@ -328,6 +321,15 @@
                     preview.style.display = 'block';
                 }
             });
+
+            // Tom Select Initialization
+         document.querySelectorAll(".tom-select").forEach(function (el) {
+            new TomSelect(el, {
+                plugins: ["remove_button"],
+                create: false,
+                persist: false
+            });
+        });
 
         </script>
 

@@ -57,7 +57,7 @@ return [
     |
     */
 
-    'after_commit' => false,
+    'after_commit' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -148,6 +148,7 @@ return [
                     'description',
                     'tags',
                     'file_name',
+                    'pdf_content',
                 ],
             ],
         ],

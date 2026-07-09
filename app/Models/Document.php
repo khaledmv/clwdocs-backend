@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -17,8 +18,6 @@ class Document extends Model
 
     protected $fillable = [
         'title', 'slug', 'description', 'pdf_content', 'meta_title', 'meta_description',
-        'document_type_id', 'brand_id', 'application_id',
-        'solution_id', 'product_category_id', 'location_id',
         'file_path', 'file_name', 'file_size', 'mime_type', 'thumbnail_path',
         'uploaded_by', 'is_published', 'published_at',
     ];
@@ -54,34 +53,34 @@ class Document extends Model
 
      // ─── Relationships ────────────────────────────────────────────────────────
 
-    public function documentType(): BelongsTo
+    public function documentTypes(): BelongsToMany
     {
-        return $this->belongsTo(DocumentType::class);
+        return $this->belongsToMany(DocumentType::class, 'document_document_type');
     }
 
-    public function brand(): BelongsTo
+    public function brands(): BelongsToMany
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsToMany(Brand::class, 'document_brand');
     }
 
-    public function application(): BelongsTo
+    public function applications(): BelongsToMany
     {
-        return $this->belongsTo(Application::class);
+        return $this->belongsToMany(Application::class, 'document_application');
     }
 
-    public function solution(): BelongsTo
+    public function solutions(): BelongsToMany
     {
-        return $this->belongsTo(Solution::class);
+        return $this->belongsToMany(Solution::class, 'document_solution');
     }
 
-    public function productCategory(): BelongsTo
+    public function productCategories(): BelongsToMany
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsToMany(ProductCategory::class, 'document_product_category');
     }
 
-    public function location(): BelongsTo
+    public function locations(): BelongsToMany
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsToMany(Location::class, 'document_location');
     }
 
     public function uploader(): BelongsTo
@@ -123,13 +122,13 @@ class Document extends Model
     public function allTags(): Collection
     {
         return collect([
-            $this->documentType?->name,
-            $this->brand?->name,
-            $this->application?->name,
-            $this->solution?->name,
-            $this->productCategory?->name,
-            $this->location?->name,
-        ])->filter();
+            $this->documentTypes,
+            $this->brands,
+            $this->applications,
+            $this->solutions,
+            $this->productCategories,
+            $this->locations,
+        ])->flatMap(fn ($related) => $related->pluck('name'))->filter()->values();
     }
 
     // ─── Scopes ───────────────────────────────────────────────────────────────
@@ -181,7 +180,7 @@ class Document extends Model
                 ->when($filters['document_type'] ?? null, function ($q, $value) {
                     $slugs = array_filter(array_map('trim', explode(',', $value)));
 
-                    $q->whereHas('documentType', function ($q) use ($slugs) {
+                    $q->whereHas('documentTypes', function ($q) use ($slugs) {
                         $q->whereIn('slug', $slugs);
                     });
                 })
@@ -189,7 +188,7 @@ class Document extends Model
                 ->when($filters['brand'] ?? null, function ($q, $value) {
                     $slugs = array_filter(array_map('trim', explode(',', $value)));
 
-                    $q->whereHas('brand', function ($q) use ($slugs) {
+                    $q->whereHas('brands', function ($q) use ($slugs) {
                         $q->whereIn('slug', $slugs);
                     });
                 })
@@ -197,7 +196,7 @@ class Document extends Model
                 ->when($filters['application'] ?? null, function ($q, $value) {
                     $slugs = array_filter(array_map('trim', explode(',', $value)));
 
-                    $q->whereHas('application', function ($q) use ($slugs) {
+                    $q->whereHas('applications', function ($q) use ($slugs) {
                         $q->whereIn('slug', $slugs);
                     });
                 })
@@ -205,7 +204,7 @@ class Document extends Model
                 ->when($filters['solution'] ?? null, function ($q, $value) {
                     $slugs = array_filter(array_map('trim', explode(',', $value)));
 
-                    $q->whereHas('solution', function ($q) use ($slugs) {
+                    $q->whereHas('solutions', function ($q) use ($slugs) {
                         $q->whereIn('slug', $slugs);
                     });
                 })
@@ -213,7 +212,7 @@ class Document extends Model
                 ->when($filters['product_category'] ?? null, function ($q, $value) {
                     $slugs = array_filter(array_map('trim', explode(',', $value)));
 
-                    $q->whereHas('productCategory', function ($q) use ($slugs) {
+                    $q->whereHas('productCategories', function ($q) use ($slugs) {
                         $q->whereIn('slug', $slugs);
                     });
                 })
@@ -221,7 +220,7 @@ class Document extends Model
                 ->when($filters['location'] ?? null, function ($q, $value) {
                     $slugs = array_filter(array_map('trim', explode(',', $value)));
 
-                    $q->whereHas('location', function ($q) use ($slugs) {
+                    $q->whereHas('locations', function ($q) use ($slugs) {
                         $q->whereIn('slug', $slugs);
                     });
                 });
@@ -232,25 +231,25 @@ class Document extends Model
     public function toSearchableArray(): array
     {
         return [
-            'id'                  => $this->id,
-            'title'               => $this->title,
-            'slug'                => $this->slug,
-            'description'         => $this->description,
-            'pdf_content' => $this->pdf_content,
-            'document_type'       => $this->documentType?->name,
-            'document_type_id'    => $this->document_type_id,
-            'brand'               => $this->brand?->name,
-            'brand_id'            => $this->brand_id,
-            'application'         => $this->application?->name,
-            'application_id'      => $this->application_id,
-            'solution'            => $this->solution?->name,
-            'solution_id'         => $this->solution_id,
-            'product_category'    => $this->productCategory?->name,
-            'product_category_id' => $this->product_category_id,
-            'location'            => $this->location?->name,
-            'location_id'         => $this->location_id,
+            'id'                    => $this->id,
+            'title'                 => $this->title,
+            'slug'                  => $this->slug,
+            'description'           => $this->description,
+            'pdf_content'           => $this->pdf_content,
+            'document_types'        => $this->documentTypes->pluck('name')->all(),
+            'document_type_ids'     => $this->documentTypes->pluck('id')->all(),
+            'brands'                => $this->brands->pluck('name')->all(),
+            'brand_ids'             => $this->brands->pluck('id')->all(),
+            'applications'          => $this->applications->pluck('name')->all(),
+            'application_ids'       => $this->applications->pluck('id')->all(),
+            'solutions'             => $this->solutions->pluck('name')->all(),
+            'solution_ids'          => $this->solutions->pluck('id')->all(),
+            'product_categories'    => $this->productCategories->pluck('name')->all(),
+            'product_category_ids'  => $this->productCategories->pluck('id')->all(),
+            'locations'             => $this->locations->pluck('name')->all(),
+            'location_ids'          => $this->locations->pluck('id')->all(),
             'file_name' => $this->file_name,
-            'tags' => $this->tags?->pluck('name')->toArray() ?? [],
+            'tags' => $this->allTags()->all(),
             'published_at'        => $this->published_at?->timestamp,
         ];
     }

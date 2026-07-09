@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Brand extends Model
@@ -17,8 +17,8 @@ class Brand extends Model
         });
     }
 
-    public function documents(): HasMany
+  public function documents(): BelongsToMany
     {
-        return $this->hasMany(Document::class);
+        return $this->belongsToMany(Document::class, 'document_brand');
     }
 }

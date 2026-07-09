@@ -10,49 +10,45 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class DocumentController extends Controller
 {
-     public function index(Request $request): AnonymousResourceCollection
+    private const FILTERS = [
+        'document_type',
+        'brand',
+        'application',
+        'solution',
+        'product_category',
+        'location',
+    ];
+
+    private const RELATIONS = [
+        'documentTypes',
+        'brands',
+        'applications',
+        'solutions',
+        'productCategories',
+        'locations',
+    ];
+
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $perPage = in_array((int) $request->per_page, [12, 24, 48, 96])
-            ? (int) $request->per_page
+        $perPage = in_array((int) $request->input('per_page'), [12, 24, 48, 96], true)
+            ? (int) $request->input('per_page')
             : 12;
 
-        // $filters = $request->only([
-        //     'document_type_id',
-        //     'brand_id',
-        //     'application_id',
-        //     'solution_id',
-        //     'product_category_id',
-        //     'location_id',
-        // ]);
-
-        $filters = $request->only([
-            'document_type',
-            'brand',
-            'application',
-            'solution',
-            'product_category',
-            'location',
-        ]);
+        $filters = array_filter(
+            $request->only(self::FILTERS),
+            fn ($value) => filled($value)
+        );
 
         if ($request->filled('search')) {
-            $ids = Document::search($request->search)
-                ->when($filters, function ($query) use ($filters) {
-                    foreach ($filters as $key => $value) {
-                        if ($value) {
-                            $query->where($key, $value);
-                        }
-                    }
-                })
-                ->keys();
-
-            $documents = Document::published()
-                ->whereIn('slug', $ids)
-                ->with(['documentType', 'brand', 'application', 'solution', 'productCategory', 'location'])
-                ->paginate($perPage);
+            $documents = $this->searchDocuments(
+                $request->string('search')->toString(),
+                $filters,
+                $perPage
+            );
         } else {
             $documents = Document::published()
                 ->filter($filters)
-                ->with(['documentType', 'brand', 'application', 'solution', 'productCategory', 'location'])
+                ->with(self::RELATIONS)
                 ->latest('published_at')
                 ->paginate($perPage);
         }
@@ -63,11 +59,38 @@ class DocumentController extends Controller
     public function show(string $slug): DocumentResource
     {
         $document = Document::published()
-            ->with(['documentType', 'brand', 'application', 'solution', 'productCategory', 'location'])
+            ->with(self::RELATIONS)
             ->where('slug', $slug)
             ->firstOrFail();
 
         return new DocumentResource($document);
     }
 
+    private function searchDocuments(
+        string $search,
+        array $filters,
+        int $perPage
+    ) {
+        $ids = Document::search($search)
+            ->when($filters, function ($query) use ($filters) {
+                foreach ($filters as $key => $value) {
+                    $query->where($key, $value);
+                }
+            })
+            ->keys();
+
+        if ($ids->isEmpty()) {
+            return Document::query()
+                ->whereRaw('1 = 0')
+                ->paginate($perPage);
+        }
+
+        return Document::published()
+            ->whereIn('slug', $ids)
+            ->orderByRaw(
+                "FIELD(slug, '" . implode("','", $ids->all()) . "')"
+            )
+            ->with(self::RELATIONS)
+            ->paginate($perPage);
+    }
 }

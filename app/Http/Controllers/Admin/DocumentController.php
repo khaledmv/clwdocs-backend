@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use App\Http\Requests\Admin\StoreDocumentRequest;
 use App\Http\Requests\Admin\UpdateDocumentRequest;
 use App\Models\Document;
@@ -15,6 +16,7 @@ use App\Models\ProductCategory;
 use App\Models\Solution;
 use Illuminate\Support\Facades\Storage;
 use App\Services\PdfExtractorService;
+use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
@@ -22,13 +24,13 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Document::with([
-            'application', 'documentType', 'brand', 'location','productCategory','solution'
+            'applications', 'documentTypes', 'brands', 'locations', 'productCategories', 'solutions'
             ])
             ->latest()
             ->paginate(20);
 
         $documentsWithTrash = Document::onlyTrashed()
-            ->with(['application', 'documentType', 'brand', 'location','productCategory','solution'])
+            ->with(['applications', 'documentTypes', 'brands', 'locations', 'productCategories', 'solutions'])
             ->latest()
             ->paginate(20);
 
@@ -43,39 +45,47 @@ class DocumentController extends Controller
     }
 
 
-    public function store(StoreDocumentRequest $request)
-    {
-        $file = $request->file('file');
-        $extractor = app(PdfExtractorService::class);
+   public function store(StoreDocumentRequest $request, PdfExtractorService $extractor)
+{
+    DB::transaction(function () use ($request, $extractor) {
 
-        $filePath = $file->store('documents', 'public');
-        $pdfText = $extractor->extract(storage_path('app/public/' . $filePath));
-       
-        $thumbnailPath = null;
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
-        }
+        $fileData = $this->storeDocumentFile($request->file('file'), $extractor);
 
-        Document::create([
-            ...$request->safe()->except(['file', 'thumbnail']),
-            'file_path'    => $filePath,
-            'file_name'    => $file->getClientOriginalName(),
-            'file_size'    => $file->getSize(),
-            'mime_type'    => $file->getMimeType(),
-            'thumbnail_path' => $thumbnailPath,
-            'uploaded_by'  => auth()->id(),
+        $document = Document::create([
+            ...$request->safe()->except([
+                'file',
+                'thumbnail',
+                'document_type_ids',
+                'brand_ids',
+                'application_ids',
+                'solution_ids',
+                'product_category_ids',
+                'location_ids',
+            ]),
+
+            ...$fileData,
+
+            'thumbnail_path' => $this->storeThumbnail($request),
+
+            'uploaded_by' => auth()->id(),
+
             'is_published' => $request->boolean('is_published', true),
-            'published_at' => $request->boolean('is_published', true) ? now() : null,
-            'pdf_content' => $pdfText,
+
+            'published_at' => $request->boolean('is_published', true)
+                ? now()
+                : null,
         ]);
 
-            $notification = array(
-            "message" => "Document uploaded successfully.",
-            "alert-type" => "success"
-            );
+        $this->syncRelations($document, $request);
+    });
 
-        return redirect()->route('documents.index')->with($notification);
-    }
+    return redirect()
+        ->route('documents.index')
+        ->with([
+            'message' => 'Document uploaded successfully.',
+            'alert-type' => 'success',
+        ]);
+}
 
     // Edit documets 
 
@@ -89,40 +99,63 @@ class DocumentController extends Controller
 
     // Update documents
 
-        public function update(UpdateDocumentRequest $request, Document $document)
+  public function update( UpdateDocumentRequest $request, Document $document, PdfExtractorService $extractor)
     {
-        $data = $request->safe()->except(['file', 'thumbnail']);
+    DB::transaction(function () use ($request, $document, $extractor) {
+
+        $data = $request->safe()->except([
+            'file',
+            'thumbnail',
+            'document_type_ids',
+            'brand_ids',
+            'application_ids',
+            'solution_ids',
+            'product_category_ids',
+            'location_ids',
+        ]);
+
         $data['is_published'] = $request->boolean('is_published');
 
         if ($request->hasFile('file')) {
+
+            $newFile = $this->storeDocumentFile(
+                $request->file('file'),
+                $extractor
+            );
+
             Storage::disk('public')->delete($document->file_path);
-            $file = $request->file('file');
-            $data['file_path'] = $file->store('documents', 'public');
-            $data['file_name'] = $file->getClientOriginalName();
-            $data['file_size'] = $file->getSize();
-            $data['mime_type'] = $file->getMimeType();
+
+            $data = array_merge($data, $newFile);
         }
 
         if ($request->hasFile('thumbnail')) {
-            if ($document->thumbnail_path) {
-                Storage::disk('public')->delete($document->thumbnail_path);
-            }
-            $data['thumbnail_path'] = $request->file('thumbnail')->store('thumbnails', 'public');
-        }
 
-        if (isset($data['is_published'])) {
-            $data['published_at'] = $data['is_published'] && ! $document->published_at ? now() : $document->published_at;
-        }
+                $thumbnailPath = $this->storeThumbnail($request);
+
+                if ($document->thumbnail_path) {
+                    Storage::disk('public')->delete($document->thumbnail_path);
+                }
+
+                $data['thumbnail_path'] = $thumbnailPath;
+            }
+
+
+       $data['published_at'] = $data['is_published']
+        ? ($document->published_at ?? now())
+        : null;
 
         $document->update($data);
 
-        $notification = array(
-                "message" => "Document updated successfully.",
-                "alert-type" => "success"
-        );
+        $this->syncRelations($document, $request);
+    });
 
-        return redirect()->route('documents.index')->with($notification);
-    }
+    return redirect()
+        ->route('documents.index')
+        ->with([
+            'message' => 'Document updated successfully.',
+            'alert-type' => 'success',
+        ]);
+}
 
 
     // Moved to trash
@@ -177,6 +210,47 @@ class DocumentController extends Controller
             'productCategories' => ProductCategory::orderBy('name')->get(),
             'locations'         => Location::orderBy('name')->get(),
         ];
+    }
+
+    private function storeDocumentFile( UploadedFile $file, PdfExtractorService $extractor ): array
+    {
+        $path = $file->store('documents', 'public');
+
+        try {
+            return [
+                'file_path'   => $path,
+                'file_name'   => $file->getClientOriginalName(),
+                'file_size'   => $file->getSize(),
+                'mime_type'   => $file->getMimeType(),
+                'pdf_content' => $extractor->extract(
+                    storage_path("app/public/{$path}")
+                ),
+            ];
+        } catch (\Throwable $e) {
+            Storage::disk('public')->delete($path);
+
+            throw $e;
+        }
+    }
+
+    private function storeThumbnail(Request $request): ?string
+    {
+        if (! $request->hasFile('thumbnail')) {
+            return null;
+        }
+
+        return $request->file('thumbnail')
+            ->store('thumbnails', 'public');
+    }
+
+    private function syncRelations(Document $document, Request $request): void
+    {
+        $document->documentTypes()->sync($request->input('document_type_ids', []));
+        $document->brands()->sync($request->input('brand_ids', []));
+        $document->applications()->sync($request->input('application_ids', []));
+        $document->solutions()->sync($request->input('solution_ids', []));
+        $document->productCategories()->sync($request->input('product_category_ids', []));
+        $document->locations()->sync($request->input('location_ids', []));
     }
 
 
