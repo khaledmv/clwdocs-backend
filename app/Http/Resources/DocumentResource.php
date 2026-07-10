@@ -25,6 +25,11 @@ class DocumentResource extends JsonResource
             'published_at'       => $this->published_at?->toDateString(),
             'created_at'         => $this->created_at->toISOString(),
 
+            'search_snippet'     => $this->when(
+                                        request()->filled('search'),
+                                        $this->search_snippet
+                                    ),
+
             'document_types'     => $this->whenLoaded(
                 'documentTypes',
                 fn () => $this->transformTags($this->documentTypes)
