@@ -142,13 +142,23 @@ return [
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
-            Document::class => [
+          Document::class => [
                 'searchableAttributes' => [
                     'title',
                     'description',
                     'tags',
                     'file_name',
                     'pdf_content',
+                ],
+
+                'filterableAttributes' => [
+                    'document_type_ids',
+                    'brand_ids',
+                    'application_ids',
+                    'solution_ids',
+                    'product_category_ids',
+                    'location_ids',
+                    'published_at',
                 ],
             ],
         ],

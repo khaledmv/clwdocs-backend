@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DocumentResource;
 use App\Models\Document;
+use App\Services\MeilisearchService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Meilisearch\Client;
@@ -29,7 +30,7 @@ class DocumentController extends Controller
         'locations',
     ];
 
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request, MeilisearchService $search): AnonymousResourceCollection
     {
         $perPage = in_array((int) $request->input('per_page'), [12, 24, 48, 96], true)
             ? (int) $request->input('per_page')
@@ -40,10 +41,17 @@ class DocumentController extends Controller
             fn ($value) => filled($value)
         );
 
+        // if ($request->filled('search')) {
+        //     $documents = $this->searchDocuments(
+        //         $request->string('search')->toString(),
+        //         $filters,
+        //         $perPage
+        //     );
         if ($request->filled('search')) {
-            $documents = $this->searchDocuments(
+            $documents = $search->search(
                 $request->string('search')->toString(),
                 $filters,
+                (int) $request->input('page', 1),
                 $perPage
             );
         } else {

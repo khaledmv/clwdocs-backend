@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>clw-backend — The lightweight backend framework for modern APIs</title>
   <meta name="description" content="clw-backend is a fast, type-safe backend framework for building REST and GraphQL APIs with built-in auth, first-class DX, and zero-config deployment." />
-
+  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico')}}">
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

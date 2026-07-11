@@ -90,18 +90,30 @@ class Document extends Model
 
     // ─── Accessors ────────────────────────────────────────────────────────────
 
+    // public function getFileUrlAttribute(): string
+    // {
+    //     return Storage::disk('public')->url($this->file_path);
+    // }
+
+    // public function getThumbnailUrlAttribute(): ?string
+    // {
+    //     return $this->thumbnail_path
+    //         ? Storage::disk('public')->url($this->thumbnail_path)
+    //         : null;
+    // }
+
     public function getFileUrlAttribute(): string
     {
-        return Storage::disk('public')->url($this->file_path);
+        return asset('storage/app/public/' . $this->file_path);
     }
 
     public function getThumbnailUrlAttribute(): ?string
     {
         return $this->thumbnail_path
-            ? Storage::disk('public')->url($this->thumbnail_path)
+            ? asset('storage/app/public/' . $this->thumbnail_path)
             : null;
     }
-
+    
     public function getFileSizeHumanAttribute(): string
     {
         $bytes = $this->file_size;
@@ -226,33 +238,52 @@ class Document extends Model
                 });
         }
 
-    // ─── Scout ────────────────────────────────────────────────────────────────
+        // ─── Scout ────────────────────────────────────────────────────────────────
 
-    public function toSearchableArray(): array
-    {
-        return [
-            'id'                    => $this->id,
-            'title'                 => $this->title,
-            'slug'                  => $this->slug,
-            'description'           => $this->description,
-            'pdf_content'           => $this->pdf_content,
-            'document_types'        => $this->documentTypes->pluck('name')->all(),
-            'document_type_ids'     => $this->documentTypes->pluck('id')->all(),
-            'brands'                => $this->brands->pluck('name')->all(),
-            'brand_ids'             => $this->brands->pluck('id')->all(),
-            'applications'          => $this->applications->pluck('name')->all(),
-            'application_ids'       => $this->applications->pluck('id')->all(),
-            'solutions'             => $this->solutions->pluck('name')->all(),
-            'solution_ids'          => $this->solutions->pluck('id')->all(),
-            'product_categories'    => $this->productCategories->pluck('name')->all(),
-            'product_category_ids'  => $this->productCategories->pluck('id')->all(),
-            'locations'             => $this->locations->pluck('name')->all(),
-            'location_ids'          => $this->locations->pluck('id')->all(),
-            'file_name' => $this->file_name,
-            'tags' => $this->allTags()->all(),
-            'published_at'        => $this->published_at?->timestamp,
-        ];
-    }
+        public function toSearchableArray(): array
+        {
+            return [
+                'id'                    => $this->id,
+                'title'                 => $this->title,
+                'slug'                  => $this->slug,
+                'description'           => $this->description,
+                'pdf_content'           => $this->pdf_content,
+
+                // Document Types
+                'document_types'        => $this->documentTypes->pluck('name')->all(),
+                'document_type_ids'     => $this->documentTypes->pluck('id')->all(),
+                'document_type_slugs'   => $this->documentTypes->pluck('slug')->all(),
+
+                // Brands
+                'brands'                => $this->brands->pluck('name')->all(),
+                'brand_ids'             => $this->brands->pluck('id')->all(),
+                'brand_slugs'           => $this->brands->pluck('slug')->all(),
+
+                // Applications
+                'applications'          => $this->applications->pluck('name')->all(),
+                'application_ids'       => $this->applications->pluck('id')->all(),
+                'application_slugs'     => $this->applications->pluck('slug')->all(),
+
+                // Solutions
+                'solutions'             => $this->solutions->pluck('name')->all(),
+                'solution_ids'          => $this->solutions->pluck('id')->all(),
+                'solution_slugs'        => $this->solutions->pluck('slug')->all(),
+
+                // Product Categories
+                'product_categories'    => $this->productCategories->pluck('name')->all(),
+                'product_category_ids'  => $this->productCategories->pluck('id')->all(),
+                'product_category_slugs'=> $this->productCategories->pluck('slug')->all(),
+
+                // Locations
+                'locations'             => $this->locations->pluck('name')->all(),
+                'location_ids'          => $this->locations->pluck('id')->all(),
+                'location_slugs'        => $this->locations->pluck('slug')->all(),
+
+                'file_name'             => $this->file_name,
+                'tags'                  => $this->allTags()->all(),
+                'published_at'          => $this->published_at?->timestamp,
+            ];
+        }
 
     public function shouldBeSearchable(): bool
     {

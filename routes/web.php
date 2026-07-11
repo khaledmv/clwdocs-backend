@@ -4,7 +4,26 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\TaxonomyController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Document;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/import-documents', function () {
+
+    Document::query()
+        ->chunkById(500, function ($documents) {
+            $documents->searchable();
+        });
+
+    return 'Documents imported successfully!';
+});
+
+Route::get('/optimize', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('optimize');
+
+    return 'Done';
+});
 
 Route::get('/', function () {
     return view('frontend.home');
