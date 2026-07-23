@@ -2,20 +2,18 @@
 
 namespace App\Services;
 
-use Smalot\PdfParser\Parser;
+use Spatie\PdfToText\Pdf;
 
 class PdfExtractorService
 {
-  public function extract(string $path): string
+   public function extract(string $path): string
     {
         try {
-            $parser = new Parser();
+            $text = Pdf::getText(
+                $path,
+                config('services.pdftotext.binary')
+            );
 
-            $pdf = $parser->parseFile($path);
-
-            $text = $pdf->getText();
-
-            // Normalize encoding
             $text = mb_convert_encoding(
                 $text,
                 'UTF-8',
@@ -26,8 +24,9 @@ class PdfExtractorService
                 ) ?: 'UTF-8'
             );
 
-            // Remove invalid UTF-8 bytes
-            return iconv('UTF-8', 'UTF-8//IGNORE', $text);
+            $text = iconv('UTF-8', 'UTF-8//IGNORE', $text);
+
+            return trim($text);
 
         } catch (\Throwable $e) {
             report($e);
@@ -35,4 +34,6 @@ class PdfExtractorService
             return '';
         }
     }
+
+
 }

@@ -90,29 +90,29 @@ class Document extends Model
 
     // ─── Accessors ────────────────────────────────────────────────────────────
 
-    // public function getFileUrlAttribute(): string
-    // {
-    //     return Storage::disk('public')->url($this->file_path);
-    // }
-
-    // public function getThumbnailUrlAttribute(): ?string
-    // {
-    //     return $this->thumbnail_path
-    //         ? Storage::disk('public')->url($this->thumbnail_path)
-    //         : null;
-    // }
-
     public function getFileUrlAttribute(): string
     {
-        return asset('storage/app/public/' . $this->file_path);
+        return Storage::disk('public')->url($this->file_path);
     }
 
     public function getThumbnailUrlAttribute(): ?string
     {
         return $this->thumbnail_path
-            ? asset('storage/app/public/' . $this->thumbnail_path)
+            ? Storage::disk('public')->url($this->thumbnail_path)
             : null;
     }
+
+    // public function getFileUrlAttribute(): string
+    // {
+    //     return asset('storage/app/public/' . $this->file_path);
+    // }
+
+    // public function getThumbnailUrlAttribute(): ?string
+    // {
+    //     return $this->thumbnail_path
+    //         ? asset('storage/app/public/' . $this->thumbnail_path)
+    //         : null;
+    // }
     
     public function getFileSizeHumanAttribute(): string
     {

@@ -8,6 +8,18 @@ use App\Models\Document;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+use Spatie\PdfToText\Pdf;
+
+Route::get('/test-pdf', function () {
+
+    $text = Pdf::getText(
+        storage_path('app/public/documents/test.pdf')
+    );
+
+    dd($text);
+
+});
+
 Route::get('/import-documents', function () {
 
     Document::query()
