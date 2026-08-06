@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -87,6 +88,45 @@ class AdminController extends Controller
         // return redirect()->back()->with('success', 'Profile updated successfully!');
         return redirect()->back()->with($notification);
 
+    }
+
+
+    public function AdminPasswordUpdate(Request $request)
+    {
+        $request->validate([
+            'old_password' => ['required', 'string'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = Auth::user();
+
+        // if (!password_verify($request->old_password, $user->password)) {
+        //     return redirect()->back()->withErrors(['old_password' => 'The provided password does not match your current password.']);
+        // }
+
+        // $user->password = bcrypt($request->new_password);
+        // $user->save();
+
+        // return redirect()->back()->with('success', 'Password updated successfully!');
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            $notification = array(
+                'message' => 'The provided password does not match your current password.',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        User::whereId($user->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+            'message' => 'Password updated successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
 

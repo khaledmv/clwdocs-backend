@@ -23,18 +23,39 @@ class DocumentController extends Controller
     
     public function index()
     {
-        $documents = Document::with([
-            'applications', 'documentTypes', 'brands', 'locations', 'productCategories', 'solutions'
-            ])
-            ->latest()
-            ->paginate(20);
+        $relations = [
+            'applications',
+            'documentTypes',
+            'brands',
+            'locations',
+            'productCategories',
+            'solutions',
+        ];
 
+        // All documents including drafts and published
+        $documents = Document::with($relations)
+            ->latest()
+            ->get();
+            
+        // Draft documents
+        $draftDocuments = Document::with($relations)
+        ->whereNull('published_at')
+        ->latest()
+        ->get();
+
+        // Published documents
+        $publishedDocuments = Document::with($relations)
+        ->whereNotNull('published_at')
+        ->latest()
+        ->get();
+
+        // Documents in trash
         $documentsWithTrash = Document::onlyTrashed()
-            ->with(['applications', 'documentTypes', 'brands', 'locations', 'productCategories', 'solutions'])
+            ->with($relations)
             ->latest()
-            ->paginate(20);
+            ->get();
 
-        return view('backend.documents.index', compact('documents', 'documentsWithTrash'));
+        return view('backend.documents.index', compact('documents', 'publishedDocuments','documentsWithTrash', 'draftDocuments'));
     }
 
 

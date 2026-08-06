@@ -32,14 +32,28 @@
                                             <li class="nav-item" role="presentation">
                                                 <a class="nav-link active p-2" id="profile_about_tab" data-bs-toggle="tab" href="#profile_about" role="tab" aria-selected="true">
                                                     <span class="d-block d-sm-none"><i class="mdi mdi-information"></i></span>
-                                                    <span class="d-none d-sm-block">Published</span>
+                                                    <span class="d-none d-sm-block">All <sup>{{ $documents->count() }}</sup></span>
+                                                </a>
+                                            </li>
+
+                                              <li class="nav-item">
+                                                <a class="nav-link p-2" id="setting_tab" data-bs-toggle="tab" href="#profile_setting" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="mdi mdi-school"></i></span>
+                                                    <span class="d-none d-sm-block">Published <sup>{{ $publishedDocuments->count() }}</sup> </span>
+                                                </a>
+                                            </li>
+
+                                             <li class="nav-item">
+                                                <a class="nav-link p-2" id="profile_experience_tab" data-bs-toggle="tab" href="#profile_experience" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="mdi mdi-sitemap-outline"></i></span>
+                                                    <span class="d-none d-sm-block">Draft <sup>{{ $draftDocuments->count() }}</sup></span>
                                                 </a>
                                             </li>
 
                                             <li class="nav-item" role="presentation">
                                                 <a class="nav-link p-2" id="portfolio_education_tab" data-bs-toggle="tab" href="#profile_education" role="tab" aria-selected="false" tabindex="-1">
                                                     <span class="d-block d-sm-none"><i class="mdi mdi-school"></i></span>
-                                                    <span class="d-none d-sm-block">Trash</span>
+                                                    <span class="d-none d-sm-block">Trash <sup>{{ $documentsWithTrash->count() }}</sup></span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -61,10 +75,9 @@
                                                             <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>SL.</th>
+                                                                    <th style="width:50px;">SL.</th>
                                                                     <th>Title</th>
-                                                                    {{-- <th>Slug</th> --}}
-                                                                    <th>Action</th>
+                                                                    <th style="width:18%;">Action</th>
                                                                 
                                                                 </tr>
                                                                 </thead>
@@ -99,9 +112,103 @@
                                                 </div>
                                             </div>
 
-                                              
+                                            </div><!-- All -->
 
-                                            </div><!-- Published -->
+                                               <div class="tab-pane pt-4" id="profile_setting" role="tabpanel">
+                                                 <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+
+                                                        <div class="card-body">
+                                                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th style="width:50px;">SL.</th>
+                                                                    <th>Title</th>
+                                                                    <th style="width:18%;">Action</th>
+                                                                
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($publishedDocuments as $item)
+                                                                    <tr>
+                                                                        <td># {{ $loop->iteration }}</td>
+                                                                        <td> {{ ucwords($item->title) }} </td>
+                                                                        {{-- <td>{{ $item->slug }}</td> --}}
+                                                                        <td>
+                                                                            <div class="d-flex flex-wrap gap-2">
+                                                                                <a href="{{ route('documents.edit', $item->id ) }}" class="btn btn-outline-primary rounded-pill">Edit</a>
+
+                                                                            
+                                                                                <form action="{{ route('documents.destroy', $item->id ) }}" method="POST" class="d-inline trash-form">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+
+                                                                                    <button class="btn btn-outline-danger rounded-pill ">
+                                                                                        Moved to trash
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div> <!-- end education -->
+
+                                             <div class="tab-pane pt-4" id="profile_experience" role="tabpanel">
+                                                <div class="row">
+
+                                                <div class="col-12">
+                                                    <div class="card">
+
+                                                        <div class="card-body">
+                                                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th style="width:50px;">SL.</th>
+                                                                    <th>Title</th>
+                                                                    <th style="width:18%;">Action</th>
+                                                                
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($draftDocuments as $item)
+                                                                    <tr>
+                                                                        <td># {{ $loop->iteration }}</td>
+                                                                        <td> {{ ucwords($item->title) }} </td>
+                                                                        {{-- <td>{{ $item->slug }}</td> --}}
+                                                                        <td>
+                                                                            <div class="d-flex flex-wrap gap-2">
+                                                                                <a href="{{ route('documents.edit', $item->id ) }}" class="btn btn-outline-primary rounded-pill">Edit</a>
+
+                                                                            
+                                                                                <form action="{{ route('documents.destroy', $item->id ) }}" method="POST" class="d-inline trash-form">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+
+                                                                                    <button class="btn btn-outline-danger rounded-pill ">
+                                                                                        Moved to trash
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                            </div> <!-- end Experience -->
                                             
                                             <!-- Trashed -->
                                             <div class="tab-pane pt-4" id="profile_education" role="tabpanel" aria-labelledby="portfolio_education_tab">
@@ -113,10 +220,11 @@
                                                             <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>SL.</th>
+                                                                                                                                       
+                                                                    <th style="width:50px;">SL.</th>
                                                                     <th>Title</th>
                                                                     <th>Slug</th>
-                                                                    <th>Action</th>
+                                                                    <th style="width:18%;">Action</th>
                                                                 
                                                                 </tr>
                                                                 </thead>
